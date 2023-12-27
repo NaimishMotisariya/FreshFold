@@ -12,6 +12,10 @@ const Clothes = ({ item }) => {
                     <Image source={{ uri: item.image }} style={{ width: windowWidth / 5, height: windowHeight / 10 }}>
 
                     </Image>
+
+
+
+                    
                 </View>
 
                 <View>
