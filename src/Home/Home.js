@@ -144,19 +144,21 @@ const styles = StyleSheet.create({
     },
     Location: {
         flexDirection: 'row',
+        alignItems:'center'
     },
 
     Image: {
         width: windowWidth / 22,
         margin: 7,
         height: windowHeight / 22,
+        marginLeft:windowWidth/30
 
     },
     Profile: {
         width: windowWidth / 10,
         height: windowHeight / 20,
         borderRadius: 100,
-        marginLeft: windowWidth - 135,
+        marginLeft: windowWidth - 160,
         margin: 7,
     },
 

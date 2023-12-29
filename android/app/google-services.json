@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433442818889",
+    "project_id": "freshfold-f42fe",
+    "storage_bucket": "freshfold-f42fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433442818889:android:30683e32710ea49b46a898",
+        "android_client_info": {
+          "package_name": "com.freshfold"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZY2J3qLvE7vkg4DMqiba5CvXKitTeqSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

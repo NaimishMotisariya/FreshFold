@@ -77,3 +77,31 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+
+---For firebase :-
+
+## android /  build.gradle:-
+
+apply plugin: "com.google.gms.google-services"
+
+**and**
+
+implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:flipper-integration")
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation("com.google.firebase:firebase-auth")
+    implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+
+
+## build.gradle:-
+
+ dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath 'com.google.gms:google-services:4.4.0'
+    }
+
