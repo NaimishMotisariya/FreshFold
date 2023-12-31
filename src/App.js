@@ -8,6 +8,11 @@ import otpverifyexample from './Componets/otpverifyexample'
 const Stack = createStackNavigator()
 
 const Navigationscreens = () => {
+
+  if (__DEV__) {
+    import("./ReactotronConfig").then(() => console.log("Reactotron Configured"));
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
