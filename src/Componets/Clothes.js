@@ -10,12 +10,8 @@ const Clothes = ({ item }) => {
             <TouchableOpacity style={{ backgroundColor: "#f2f5f2", borderRadius: 8, padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 14 }}>
                 <View>
                     <Image source={{ uri: item.image }} style={{ width: windowWidth / 5, height: windowHeight / 10 }}>
-
                     </Image>
 
-
-
-                    
                 </View>
 
                 <View>
