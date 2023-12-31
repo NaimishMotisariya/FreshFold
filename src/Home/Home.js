@@ -5,6 +5,8 @@ import Reactotron from 'reactotron-react-native';
 import Services from '../Componets/Services';
 import Clothes from '../Componets/Clothes';
 import firestore from '@react-native-firebase/firestore';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alladddata } from '../Redux/Action';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -13,6 +15,8 @@ const windowHeight = Dimensions.get('window').height;
 
 const Home = () => {
   const [services, setservices] = useState();
+  const dispatch  = useDispatch()
+  const servicedata = useSelector(state => state.laundrydata);
 
   if (__DEV__) {
     import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
@@ -35,11 +39,13 @@ const Home = () => {
         });
 
         setservices(tempdata);
+        dispatch(Alladddata(tempdata))
       });
   };
 
-  Reactotron.log(services)
-  // console.log(services);
+  Reactotron.log("services => " ,services)
+  Reactotron.log("Service data => " ,servicedata)
+  console.log(services);
 
 
 
