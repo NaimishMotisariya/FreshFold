@@ -1,10 +1,19 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { adddatatocart } from '../Redux/Action';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Clothes = ({ item }) => {
+    const dispatch = useDispatch()
+
+    const _onaddtocart = ( item) => {
+        dispatch(adddatatocart(item))
+      }
+    
+
     return (
         <View>
             <TouchableOpacity style={{ backgroundColor: "#f2f5f2", borderRadius: 8, padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 14 }}>
@@ -19,7 +28,7 @@ const Clothes = ({ item }) => {
                     <Text style={{ color: 'grey', fontSize: 16, fontWeight: '600',margin:3 }}>${item.price}</Text>
                 </View>
 
-                <TouchableOpacity style={{ width: 100 }}>
+                <TouchableOpacity style={{ width: 100 }} onPress={() => {_onaddtocart(item)}}>
                     <Text style={{
                         borderColor: 'grey', 
                         borderRadius:10,
