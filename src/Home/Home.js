@@ -6,7 +6,7 @@ import Services from '../Componets/Services';
 import Clothes from '../Componets/Clothes';
 import firestore from '@react-native-firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alladddata } from '../Redux/Action';
+import { Alladddata, adddatatocart } from '../Redux/Action';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -17,6 +17,7 @@ const Home = () => {
   const [services, setservices] = useState();
   const dispatch  = useDispatch()
   const servicedata = useSelector(state => state.laundrydata);
+  const cart = useSelector(state =>  state.cart);
 
   if (__DEV__) {
     import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
@@ -43,9 +44,12 @@ const Home = () => {
       });
   };
 
-  Reactotron.log("services => " ,services)
-  Reactotron.log("Service data => " ,servicedata)
-  console.log(services);
+  const _onaddtocart = ( item) => {
+    dispatch(adddatatocart(item))
+  }
+
+  console.log("laundryid => " , servicedata.map((item) => item.data.id));
+  console.log("cart => " ,  cart)
 
 
 
@@ -68,7 +72,7 @@ const Home = () => {
         <Services />
         {services &&
           services.map((item) => (
-            <TouchableOpacity>
+            <TouchableOpacity >
               <Clothes key={item.id} item={item.data} />
             </TouchableOpacity>
           ))}
