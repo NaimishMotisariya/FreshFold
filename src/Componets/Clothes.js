@@ -1,16 +1,31 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { adddatatocart } from '../Redux/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { adddatatocart, increasecartquantity } from '../Redux/Action';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Clothes = ({ item }) => {
     const dispatch = useDispatch()
+    const cartdata = useSelector((state) => state.Cart)
 
     const _onaddtocart = ( item) => {
-        dispatch(adddatatocart(item))
+
+        console.log("additem => ", item.id)
+
+        const check = cartdata.some((i) => i.data.id === item.id)
+
+        if(check){
+            dispatch(increasecartquantity(item.id))
+            console.log('update');
+        }else{
+            dispatch(adddatatocart(item))
+            console.log('adddata');
+        }
+        
+
+        console.log("cart data => ",cartdata)
       }
     
 
