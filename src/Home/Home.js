@@ -48,7 +48,7 @@ const Home = () => {
     dispatch(adddatatocart(item))
   }
 
-  console.log("laundryid => " , servicedata.map((item) => item.data.id));
+  console.log("laundryid => " , servicedata);
   console.log("cart => " ,  cart)
 
 
