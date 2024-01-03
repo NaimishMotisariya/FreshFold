@@ -48,8 +48,9 @@ const Home = () => {
     dispatch(adddatatocart(item))
   }
 
-  console.log("laundryid => " , servicedata);
+  // console.log("laundryid => " , servicedata);
   console.log("cart => " ,  cart)
+
 
 
   return (
@@ -69,7 +70,7 @@ const Home = () => {
         <ImageSlider />
 
         <Services />
-        
+
         {/* {services &&
           services.map((item) => (
             <TouchableOpacity >

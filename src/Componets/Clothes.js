@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { adddatatocart, increasecartquantity } from '../Redux/Action';
+import { Removecart, adddatatocart, decrementequantitiy, increasecartquantity } from '../Redux/Action';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,33 +10,54 @@ const Clothes = ({ item }) => {
     const dispatch = useDispatch()
     const cartdata = useSelector((state) => state.Cart)
 
-    const _onaddtocart = ( item) => {
-
-        const check = cartdata.some((i) => i.data.id === item.id)
-        console.log("check => " , check)
+    const _onaddtocart = (item) => {
+        // const check = cartdata.some((i) => i.id === item.id)
+        // console.log("check => " , check)
         
-        if(check){
-            const cart = cartdata.map((i) => i.data.id === item.id ? {...i , data:{...i.data , quantity : i.data.quantity +1 }} : item)
-            console.log("cart => " , cart);
-            dispatch(increasecartquantity(cart))
-            console.log('update');
+        // if(check){
+        //     const cart = cartdata.map((i) => i.id === item.id ? {...i , quantity : i.quantity == } : i)
+
+        //     console.log("cart => " , cart);
+        //     dispatch(increasecartquantity(cart))
+        //     console.log('update');
+        // }else{
+            
+        // }
+
+        dispatch(adddatatocart(item))
+        console.log('adddata');
+    }
+
+    const _incrementquantitiy = (item) => {
+        const cart = cartdata.map((i) => i.id === item.id ? {...i , quantity : i.quantity + 1 } : i)
+
+        dispatch(increasecartquantity(cart))
+        console.log('increment');
+    }
+
+    const _decrementquantitiy = (item) => {
+        const findcart = cartdata.find((i) => i.id ===item.id);
+
+        if(findcart.quantity == 0 ){
+            const dummydata = cartdata.filter((i) => i.id !== item.id);
+            dispatch(Removecart(dummydata))
         }else{
-            dispatch(adddatatocart(item))
-            console.log('adddata');
-        }
-        
+            const cart = cartdata.map((i) => i.id === item.id ? {...i , quantity : i.quantity - 1 } : i)
 
-        console.log("cart data => ",cartdata)
-      }
+            dispatch(decrementequantitiy(cart))
+            console.log('decrement');
+        }
+    }
+
     
+    
+    console.log("cart data => ",cartdata)
 
     return (
         <View>
             <TouchableOpacity style={{ backgroundColor: "#f2f5f2", borderRadius: 8, padding: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', margin: 14 }}>
                 <View>
-                    <Image source={{ uri: item.image }} style={{ width: windowWidth / 5, height: windowHeight / 10 }}>
-                    </Image>
-
+                    <Image source={{ uri: item.image }} style={{ width: windowWidth / 5, height: windowHeight / 10 }}/>
                 </View>
 
                 <View>
@@ -44,7 +65,7 @@ const Clothes = ({ item }) => {
                     <Text style={{ color: 'grey', fontSize: 16, fontWeight: '600',margin:3 }}>${item.price}</Text>
                 </View>
 
-                <TouchableOpacity style={{ width: 100 }} onPress={() => {_onaddtocart(item)}}>
+                {/* <TouchableOpacity style={{ width: 100 }} onPress={() => {_onaddtocart(item)}}>
                     <Text style={{
                         borderColor: 'grey', 
                         borderRadius:10,
@@ -55,7 +76,35 @@ const Clothes = ({ item }) => {
                         textAlign: 'center',
                         padding: 5 }}> Add
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+
+                {
+                cartdata.some((i) => i.id === item.id ) ? 
+                    ( <View style={styles.buttonbox}>
+                        <TouchableOpacity style={styles.button} onPress={() => {_incrementquantitiy(item)}}>
+                            <Text style={{color:'#1b263b',fontSize:28,fontFamily:"Roboto-Bold"}}> + </Text>
+                        </TouchableOpacity>
+
+                        <Text style={{color:'#1b263b',fontSize:18,fontFamily:"Roboto-Bold"}}> 1 </Text>
+
+                        <TouchableOpacity style={styles.button} onPress={() => {_decrementquantitiy(item)}}>
+                            <Text style={{color:'#1b263b',fontSize:28,fontFamily:"Roboto-Bold"}}> - </Text>
+                        </TouchableOpacity>
+                    </View> ) : 
+                    ( <TouchableOpacity style={{ width: 100 }} onPress={() => {_onaddtocart(item)}}>
+                        <Text style={{
+                            borderColor: 'grey', 
+                            borderRadius:10,
+                            borderWidth: 1,
+                            marginVertical: 10,
+                            color: '#088F8F',
+                            fontWeight:'600',
+                            textAlign: 'center',
+                            padding: 5 }}> Add
+                        </Text>
+                    </TouchableOpacity> )
+
+                }
 
             </TouchableOpacity>
         </View>
@@ -64,4 +113,20 @@ const Clothes = ({ item }) => {
 
 export default Clothes;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    buttonbox:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center",
+        width:(windowWidth*30)/100, 
+        height:50
+    },
+    button:{
+        height:40,
+        width:40,
+        borderRadius:10,
+        backgroundColor:"#a2d2ff",
+        justifyContent:'center',
+        alignItems:'center'
+    }
+})
