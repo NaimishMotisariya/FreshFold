@@ -12,9 +12,7 @@ export const Alladddata = (data) => (
     }
 })
 
-
-export const adddatatocart = (data) => (
-    {
+export const adddatatocart = (data) => ({
     type: AddTocart,
     cartlist : {
         data
@@ -28,8 +26,3 @@ export const increasecartquantity = ( data ) => ({
     }
 })
 
-
-// export const setSelectedItem = (item) => ({
-//     type: 'SET_SELECTED_ITEM',
-//     payload: item,
-//   });

@@ -17,17 +17,15 @@ const Navigationscreens = () => {
 
   return (
     <Provider store={Laundrystore}>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}}>
-        {/* <Stack.Screen component={otpverifyexample} name='Otpverify'/> */}
-        <Stack.Screen component={Home} name='homescreen'/>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown:false}}>
+          {/* <Stack.Screen component={otpverifyexample} name='Otpverify'/> */}
+          <Stack.Screen component={Home} name='homescreen'/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   )
 }
-
-
 
 const styles = StyleSheet.create({})
 

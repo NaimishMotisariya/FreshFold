@@ -12,12 +12,13 @@ const Clothes = ({ item }) => {
 
     const _onaddtocart = ( item) => {
 
-        console.log("additem => ", item.id)
-
         const check = cartdata.some((i) => i.data.id === item.id)
-
+        console.log("check => " , check)
+        
         if(check){
-            dispatch(increasecartquantity(item.id))
+            const cart = cartdata.map((i) => i.data.id === item.id ? {...i , data:{...i.data , quantity : i.data.quantity +1 }} : item)
+            console.log("cart => " , cart);
+            dispatch(increasecartquantity(cart))
             console.log('update');
         }else{
             dispatch(adddatatocart(item))
@@ -51,9 +52,9 @@ const Clothes = ({ item }) => {
                         marginVertical: 10,
                         color: '#088F8F',
                         fontWeight:'600',
-                         textAlign: 'center',
-                          padding: 5
-                    }}>Add</Text>
+                        textAlign: 'center',
+                        padding: 5 }}> Add
+                    </Text>
                 </TouchableOpacity>
 
             </TouchableOpacity>

@@ -16,8 +16,10 @@ const ImageSlider = () => {
     "https://www.businesslist.co.cm/img/cm/m/1682444299-94-aesthetic-laundry-services.jpg",
     "https://embassycleaners.com/wp-content/uploads/2019/04/dry-cleaning-vs-laundry.jpeg"
   ]
+  
   return (
     <View style={{ marginTop: 7 }}>
+
       <SliderBox images={images}
         autoplay
         circleLoop
@@ -35,6 +37,7 @@ const ImageSlider = () => {
         ImageComponentStyle={{ borderRadius: 15, width: windowWidth - 20, marginTop: 5 }}
         imageLoadingColor="#2196F3"
       />
+
     </View>
   )
 }
