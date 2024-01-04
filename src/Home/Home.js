@@ -7,6 +7,7 @@ import Clothes from '../Componets/Clothes';
 import firestore from '@react-native-firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alladddata, adddatatocart } from '../Redux/Action';
+import { FlatList } from 'react-native-gesture-handler';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -22,7 +23,6 @@ const Home = () => {
   if (__DEV__) {
     import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
   }
-
 
   useEffect(() => {
     getitem()
@@ -48,8 +48,8 @@ const Home = () => {
     dispatch(adddatatocart(item))
   }
 
-  console.log("laundryid => " , servicedata);
-  console.log("cart => " ,  cart)
+  // console.log("laundryid => " , servicedata);
+  // console.log("cart => " ,  cart)
 
 
 
@@ -70,12 +70,27 @@ const Home = () => {
         <ImageSlider />
 
         <Services />
-        {services &&
+
+        {/* {services &&
           services.map((item) => (
             <TouchableOpacity >
               <Clothes key={item.id} item={item.data} />
             </TouchableOpacity>
-          ))}
+          ))} */}
+
+          {
+            services &&
+            <FlatList 
+              data={servicedata}
+              renderItem={({item}) => {
+                return(
+                  <TouchableOpacity >
+                    <Clothes key={item.id} item={item} />
+                  </TouchableOpacity>
+                )
+              }}
+            />
+          }
       </View>
     </ScrollView>
   );

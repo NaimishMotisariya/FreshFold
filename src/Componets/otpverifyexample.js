@@ -15,25 +15,26 @@ const otpverifyexample = ({navigation}) => {
 
     const signInWithPhoneNumber = async() =>{
         setprocess(true)
-        try{const confirmation = await auth().signInWithPhoneNumber('+91'+number);
-        console.log(confirmation);
-        setconfirm(confirmation)
+        try{
+            const confirmation = await auth().signInWithPhoneNumber('+91'+number);
+            console.log(confirmation);
+            setconfirm(confirmation)
         }catch(er){
             console.log("error : " , er)
             seterror(true)
             setprocess(false)
         }
-      }
+    }
 
-      const otpverfication = async() => {
+    const otpverfication = async() => {
         try {
             const res = await confirm.confirm(otp);
             console.log(res);
             navigation.push('homescreen')
-          } catch (error) {
+        }catch(error) {
             console.log('Invalid code.' , error);
-          }
-      }
+        }
+    }
 
   return (
     <View style={styles.screen}>
@@ -44,23 +45,18 @@ const otpverifyexample = ({navigation}) => {
       </Text>
 
       <View style={styles.box}>
-                <View style={styles.line}>
-                </View>
+            <View style={styles.line}> </View>
 
-                <Text style={{fontSize:20,color:'black'}}>
-                    Login or Signup
-                </Text>
+            <Text style={{fontSize:20,color:'black'}}>
+                Login or Signup
+            </Text>
 
-                <View style={styles.line}>
-                </View>
+            <View style={styles.line}> </View>
       </View>
-
-     
 
     {
         confirm===null ? 
-        (
-            <View>
+        (   <View>
                 <TextInput
                     style={styles.inputbox}
                     keyboardType='numeric'
@@ -73,29 +69,29 @@ const otpverifyexample = ({navigation}) => {
 
                 <TouchableOpacity
                     style={[styles.button,{flexDirection:"row"}]}
-                    onPress={() => {signInWithPhoneNumber()}}
-                >
+                    onPress={() => {signInWithPhoneNumber()}} >
+
                         <Text style={{fontSize:18,color:'white'}}> Login </Text>
-                        {process ===true ? (<ActivityIndicator 
-                        color='white'
-                        size={20}
-                        style={{marginLeft:5}}
-                        />) : (<></>)
-                    }
+                            { process ===true ? (
+                                <ActivityIndicator 
+                                    color='white'
+                                    size={20}
+                                    style={{marginLeft:5}}
+                                />) : (<></>)
+                            }
+
                 </TouchableOpacity>
+
                 {
                     error ===true ? (  <Text style={{color:'#E73131',fontSize:12,fontFamily:"Roboto-Bold",marginRight:20,marginTop:5,alignSelf:'flex-end'}}> Something went wrong,Please Try Again Letter!!! </Text>) : (<></>)
-                    
                 }
+
             </View>
-        ): (
+        ) : (
             <View>
                 <OTPInputView
                     style={{width: '80%', height: 100,alignSelf:"center",marginTop:20}}
                     pinCount={6}
-                    // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-                    // onCodeChanged = {code => { this.setState({code})}}
-                    // autoFocusOnLoad
                     secureTextEntry
                     codeInputFieldStyle={styles.underlineStyleBase}
                     codeInputHighlightStyle={styles.underlineStyleHighLighted}
@@ -107,14 +103,15 @@ const otpverifyexample = ({navigation}) => {
 
                 <TouchableOpacity
                     style={[styles.button,{marginTop:10}]}
-                    onPress={() => {otpverfication()}}
-                >
+                    onPress={() => {otpverfication()}} >
                         <Text style={{fontSize:18,color:'white'}}> Login </Text>
                 </TouchableOpacity>
             </View>
         )
     }
+
     </View>
+    
   )
 }
 
