@@ -49,7 +49,7 @@ const Home = () => {
   }
 
   // console.log("laundryid => " , servicedata);
-  console.log("cart => " ,  cart)
+  // console.log("cart => " ,  cart)
 
 
 
@@ -85,7 +85,7 @@ const Home = () => {
               renderItem={({item}) => {
                 return(
                   <TouchableOpacity >
-                    <Clothes key={item.id} item={item.data} />
+                    <Clothes key={item.id} item={item} />
                   </TouchableOpacity>
                 )
               }}

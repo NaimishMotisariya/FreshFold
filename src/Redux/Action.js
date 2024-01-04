@@ -5,12 +5,15 @@ export const AddTocart = "ADD_TO_CART";
 export const cartquantiityincrease = "cart_quantiityincrease";
 export const cartquantitiydecrement = "cart_quantiitydecrement";
 export const removefromcart = "cart_remover";
+export const productincrement = "PRODUCTICREMENT";
+export const productdecrement = "PRODUCTDECREMENT";
 
-export const Alladddata = (data) => (
+
+export const Alladddata = (item) => (
     {
     type: All_datas,
     laundrylist : {
-        data
+        item
     }
 })
 
@@ -41,3 +44,22 @@ export const Removecart = ( data ) => ({
         data
     }
 })
+
+export const Productquantityincrement = ( data ) => ({
+    type: productincrement ,
+    productincreaselist:{
+        data
+    }
+})
+
+export const Productquantitydecrement = ( data ) => ({
+    type: productdecrement ,
+    productdecrementlist:{
+        data
+    }
+})
+
+
+
+
+

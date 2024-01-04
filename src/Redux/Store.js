@@ -1,6 +1,6 @@
 import Reactotron from 'reactotron-react-native';
 import { createStore } from "redux";
-import { AddTocart, All_datas, cartquantiityincrease, cartquantitiydecrement, decrementequantitiy, removefromcart } from "./Action";
+import { AddTocart, All_datas, cartquantiityincrease, cartquantitiydecrement, decrementequantitiy, productdecrement, productincrement, removefromcart } from "./Action";
 
 const initialState = {
     laundrydata:[],
@@ -10,11 +10,11 @@ const initialState = {
 const reducer = (state = initialState , action)=> {
     switch(action.type){
         case All_datas:{
-            const {data} = action.laundrylist;
+            const {item} = action.laundrylist;
 
             return{
                 ...state,
-                laundrydata : data
+                laundrydata : item
             }
         }
 
@@ -47,10 +47,27 @@ const reducer = (state = initialState , action)=> {
         case removefromcart :{
             const {data} = action.removelist;
 
-
             return{
                 ...state,
                 Cart: data
+            }
+        }
+
+        case productincrement :{
+            const {data} = action.productincreaselist
+            
+            return{
+                ...state,
+                laundrydata :data
+            }
+        }
+
+        case productdecrement :{
+            const {data} = action.productdecrementlist
+            
+            return{
+                ...state,
+                laundrydata :data
             }
         }
 
