@@ -9,16 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alladddata, adddatatocart } from '../Redux/Action';
 import { FlatList } from 'react-native-gesture-handler';
 
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
 const Home = () => {
   const [services, setservices] = useState();
+  const [totaldata,settotaldata] = useState();
   const dispatch  = useDispatch()
   const servicedata = useSelector(state => state.laundrydata);
-  const cart = useSelector(state =>  state.cart);
+  const carts = useSelector(state =>  state.Cart);
 
   if (__DEV__) {
     import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
@@ -26,6 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     getitem()
+    
   }, [])
 
   const getitem = () => {
@@ -44,55 +44,61 @@ const Home = () => {
       });
   };
 
-  const _onaddtocart = ( item) => {
-    dispatch(adddatatocart(item))
+  const _someofitem = () => {
+    let total = 0;
+    carts.forEach(item => {
+      total += item.price * item.quantity
+    })
+    settotaldata(total)
   }
-
-  // console.log("laundryid => " , servicedata);
-  // console.log("cart => " ,  cart)
-
 
 
   return (
-    <ScrollView style={styles.screen}>
-      <View>
-        <View style={styles.location}>
-          <Image source={{ uri: 'https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-3d-location-icon-clipart-in-transparent-background-vector-png-image_6704161.png' }} style={styles.image} />
-          <Text style={styles.text}>Home</Text>
-          <Image source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRMlcYYdpn9HleCLqzIcI8BswbjHc6oSjz6VbL8IMa5Br-IGDklWZSaY3J5N-HFgeZSms&usqp=CAU' }} style={styles.profile} />
+    <View style={{flex:1}}>
+
+      <ScrollView style={styles.screen}>
+        <View>
+          <View style={styles.location}>
+            <Image source={{ uri: 'https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-3d-location-icon-clipart-in-transparent-background-vector-png-image_6704161.png' }} style={styles.image} />
+            <Text style={styles.text}>Home</Text>
+            <Image source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRMlcYYdpn9HleCLqzIcI8BswbjHc6oSjz6VbL8IMa5Br-IGDklWZSaY3J5N-HFgeZSms&usqp=CAU' }} style={styles.profile} />
+          </View>
+
+          <View style={styles.searchContainer}>
+            <TextInput placeholder='Search for items or more' placeholderTextColor={'grey'} style={styles.searchInput} />
+            <Image source={{ uri: 'https://www.freepnglogos.com/uploads/search-png/search-icon-mono-general-iconset-custom-icon-design-12.png' }} style={styles.searchIcon} />
+          </View>
+
+          <ImageSlider />
+
+          <Services />
+            {
+              services &&
+              <FlatList 
+                data={servicedata}
+                renderItem={({item}) => {
+                  return(
+                    <TouchableOpacity >
+                      <Clothes key={item.id} item={item} />
+                    </TouchableOpacity>
+                  )
+                }}
+              />
+            }
         </View>
+      </ScrollView>
 
-        <View style={styles.searchContainer}>
-          <TextInput placeholder='Search for items or more' placeholderTextColor={'grey'} style={styles.searchInput} />
-          <Image source={{ uri: 'https://www.freepnglogos.com/uploads/search-png/search-icon-mono-general-iconset-custom-icon-design-12.png' }} style={styles.searchIcon} />
-        </View>
+      {/* container */}
+      <View style={styles.container}>
+          <View style={{height:60,justifyContent:'center'}}>
+              <Text style={{fontSize:20,color:"black"}}> items : {totaldata}</Text>
+              <Text style={{fontSize:18,color:"black"}}> Total : </Text>
+          </View>
 
-        <ImageSlider />
-
-        <Services />
-
-        {/* {services &&
-          services.map((item) => (
-            <TouchableOpacity >
-              <Clothes key={item.id} item={item.data} />
-            </TouchableOpacity>
-          ))} */}
-
-          {
-            services &&
-            <FlatList 
-              data={servicedata}
-              renderItem={({item}) => {
-                return(
-                  <TouchableOpacity >
-                    <Clothes key={item.id} item={item} />
-                  </TouchableOpacity>
-                )
-              }}
-            />
-          }
+          <Text style={{fontSize:24,color:"black"}}> View Buckets </Text>
       </View>
-    </ScrollView>
+
+    </View>
   );
 };
 
@@ -145,6 +151,20 @@ const styles = StyleSheet.create({
     height: windowHeight / 40,
     margin: 7,
   },
+  container:{
+    width:(windowWidth*90)/100,
+    height:60,
+    borderRadius:12,
+    position:'absolute',
+    bottom:30,
+    backgroundColor:"#a2d2ff",
+    alignSelf:'center',
+    elevation:3,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    paddingHorizontal:10
+  }
 });
 
 export default Home;
