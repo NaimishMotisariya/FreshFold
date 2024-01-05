@@ -7,6 +7,7 @@ import otpverifyexample from './Componets/otpverifyexample'
 import { Provider } from 'react-redux'
 import Laundrystore from './Redux/Store'
 import Order from './Home/Order'
+import Cart from './Home/Cart'
 
 const Stack = createStackNavigator()
 
@@ -23,6 +24,7 @@ const Navigationscreens = () => {
           {/* <Stack.Screen component={otpverifyexample} name='Otpverify'/> */}
           <Stack.Screen component={Home} name='homescreen'/>
           <Stack.Screen component={Order} name='orderscreen'/>
+          <Stack.Screen component={Cart} name='Cartscreen'/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -12,12 +12,12 @@ import { FlatList } from 'react-native-gesture-handler';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [services, setservices] = useState();
-  const [totaldata,settotaldata] = useState();
-  const dispatch  = useDispatch()
+  const [totaldata, settotaldata] = useState();
+  const dispatch = useDispatch()
   const servicedata = useSelector(state => state.laundrydata);
-  const carts = useSelector(state =>  state.Cart);
+  const carts = useSelector(state => state.Cart);
 
   if (__DEV__) {
     import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
@@ -25,7 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     getitem()
-    
+
   }, [])
 
   const getitem = () => {
@@ -52,9 +52,15 @@ const Home = () => {
     settotaldata(total)
   }
 
+  const handlePress = () => {
+    navigation.push('orderscreen')
+  }
+
+
+ 
 
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
 
       <ScrollView style={styles.screen}>
         <View>
@@ -72,30 +78,31 @@ const Home = () => {
           <ImageSlider />
 
           <Services />
-            {
-              services &&
-              <FlatList 
-                data={servicedata}
-                renderItem={({item}) => {
-                  return(
-                    <TouchableOpacity >
-                      <Clothes key={item.id} item={item} />
-                    </TouchableOpacity>
-                  )
-                }}
-              />
-            }
+          {
+            services &&
+            <FlatList
+              data={servicedata}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity >
+                    <Clothes key={item.id} item={item} />
+                  </TouchableOpacity>
+                )
+              }}
+            />
+          }
         </View>
       </ScrollView>
 
       {/* container */}
       <View style={styles.container}>
-          <View style={{height:60,justifyContent:'center'}}>
-              <Text style={{fontSize:20,color:"black"}}> items : {totaldata}</Text>
-              <Text style={{fontSize:18,color:"black"}}> Total : </Text>
-          </View>
-
-          <Text style={{fontSize:24,color:"black"}}> View Buckets </Text>
+        <View style={{ height: 60, justifyContent: 'center' }}>
+          <Text style={{ fontSize: 20, color: "black" }}> Items: {carts.length}</Text>
+          <Text style={{ fontSize: 18, color: "black" }}> Total: {totaldata}</Text>
+        </View>
+        <TouchableOpacity onPress={handlePress}>
+          <Text style={{ fontSize: 24, color: "black" }}> View Buckets </Text>
+        </TouchableOpacity>
       </View>
 
     </View>
@@ -151,19 +158,19 @@ const styles = StyleSheet.create({
     height: windowHeight / 40,
     margin: 7,
   },
-  container:{
-    width:(windowWidth*90)/100,
-    height:60,
-    borderRadius:12,
-    position:'absolute',
-    bottom:30,
-    backgroundColor:"#a2d2ff",
-    alignSelf:'center',
-    elevation:3,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    paddingHorizontal:10
+  container: {
+    width: (windowWidth * 90) / 100,
+    height: 60,
+    borderRadius: 12,
+    position: 'absolute',
+    bottom: 30,
+    backgroundColor: "#a2d2ff",
+    alignSelf: 'center',
+    elevation: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10
   }
 });
 
