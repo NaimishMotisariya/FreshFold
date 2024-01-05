@@ -34,20 +34,19 @@ const Clothes = ({ item }) => {
         const findcart = cartdata.find((i) => i.id ===item.id);
 
         const laundry = laundrydata.map((i) => i.data.id === item.id ? {...i , quantity : i.data.quantity-- } : i)
-
+        
         if(findcart.quantity == 0 ){
             const dummydata = cartdata.filter((i) => i.id !== item.id);
             dispatch(Removecart(dummydata))
         }else{
             const cart = cartdata.map((i) => i.id === item.id ? {...i , quantity : i.quantity - 1 } : i)
-
             dispatch(decrementequantitiy(cart))
             console.log('decrement');
         }
         dispatch(Productquantitydecrement(laundry))
     }
 
-    console.log("cart data => ",cartdata)
+    console.log("laundry data => ",laundrydata)
 
     return (
         <View>
@@ -81,7 +80,7 @@ const Clothes = ({ item }) => {
                             <Text style={{color:'#1b263b',fontSize:28,fontFamily:"Roboto-Bold"}}> + </Text>
                         </TouchableOpacity>
 
-                        <Text style={{color:'#1b263b',fontSize:18,fontFamily:"Roboto-Bold"}}> {item.quantity} </Text>
+                        <Text style={{color:'#1b263b',fontSize:18,fontFamily:"Roboto-Bold"}}> {item.data.quantity} </Text>
 
                         <TouchableOpacity style={styles.button} onPress={() => {_decrementquantitiy(item.data)}}>
                             <Text style={{color:'#1b263b',fontSize:28,fontFamily:"Roboto-Bold"}}> - </Text>
