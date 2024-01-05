@@ -12,19 +12,6 @@ const Clothes = ({ item }) => {
     const laundrydata = useSelector((state) => state.laundrydata)
 
     const _onaddtocart = (item) => {
-        // const check = cartdata.some((i) => i.id === item.id)
-        // console.log("check => " , check)
-        
-        // if(check){
-        //     const cart = cartdata.map((i) => i.id === item.id ? {...i , quantity : i.quantity == } : i)
-
-        //     console.log("cart => " , cart);
-        //     dispatch(increasecartquantity(cart))
-        //     console.log('update');
-        // }else{
-            
-        // }
-
         const laundry = laundrydata.map((i) => i.data.id === item.id ? {...i , quantity : i.data.quantity++ } : i)
         
         dispatch(adddatatocart(item))
@@ -38,8 +25,6 @@ const Clothes = ({ item }) => {
 
         const laundry = laundrydata.map((i) => i.data.id === item.id ? {...i , quantity : i.data.quantity++ } : i)
 
-        // console.log("laundry => " , laundry);
-
         dispatch(increasecartquantity(cart))
         dispatch(Productquantitydecrement(laundry))
         console.log('increment');
@@ -49,8 +34,6 @@ const Clothes = ({ item }) => {
         const findcart = cartdata.find((i) => i.id ===item.id);
 
         const laundry = laundrydata.map((i) => i.data.id === item.id ? {...i , quantity : i.data.quantity-- } : i)
-
-        // console.log("laundry => " , laundry);
 
         if(findcart.quantity == 0 ){
             const dummydata = cartdata.filter((i) => i.id !== item.id);
@@ -64,12 +47,7 @@ const Clothes = ({ item }) => {
         dispatch(Productquantitydecrement(laundry))
     }
 
-
-
-    
-    
     console.log("cart data => ",cartdata)
-    // console.log("laundrydata => " , laundrydata);
 
     return (
         <View>
