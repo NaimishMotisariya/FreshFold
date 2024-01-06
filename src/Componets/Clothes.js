@@ -33,13 +33,14 @@ const Clothes = ({ item }) => {
     const _decrementquantitiy = (item) => {
         const findcart = cartdata.find((i) => i.id === item.id);
 
-        const laundry = laundrydata.map((i) => i.data.id === item.id ? { ...i, quantity: i.data.quantity-- } : i)
 
-        if (findcart.quantity == 0) {
+        const laundry = laundrydata.map((i) => i.data.id === item.id ? {...i , quantity : i.data.quantity-- } : i)
+        
+        if(findcart.quantity == 0 ){
             const dummydata = cartdata.filter((i) => i.id !== item.id);
             dispatch(Removecart(dummydata))
-        } else {
-            const cart = cartdata.map((i) => i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i)
+        }else{
+            const cart = cartdata.map((i) => i.id === item.id ? {...i , quantity : i.quantity - 1 } : i)
 
             dispatch(decrementequantitiy(cart))
             console.log('decrement');
@@ -47,7 +48,9 @@ const Clothes = ({ item }) => {
         dispatch(Productquantitydecrement(laundry))
     }
 
-    console.log("servicedata =>", laundrydata)
+
+    console.log("laundry data => ",laundrydata)
+
 
     return (
         <View>
@@ -75,34 +78,32 @@ const Clothes = ({ item }) => {
                 </TouchableOpacity> */}
 
                 {
-                    cartdata.some((i) => i.id === item.data.id) ?
-                        (<View style={styles.buttonbox}>
 
-                            <TouchableOpacity style={styles.button} onPress={() => { _decrementquantitiy(item.data) }}>
-                                <Text style={{ color: '#1b263b', fontSize: 28, fontFamily: "Roboto-Bold" }}> - </Text>
-                            </TouchableOpacity>
+                cartdata.some((i) => i.id === item.data.id ) ? 
+                    ( <View style={styles.buttonbox}>
+                        <TouchableOpacity style={styles.button} onPress={() => {_incrementquantitiy(item.data)}}>
+                            <Text style={{color:'#1b263b',fontSize:28,fontFamily:"Roboto-Bold"}}> + </Text>
+                        </TouchableOpacity>
 
+                        <Text style={{color:'#1b263b',fontSize:18,fontFamily:"Roboto-Bold"}}> {item.data.quantity} </Text>
 
-                            <Text style={{ color: '#1b263b', fontSize: 18, fontFamily: "Roboto-Bold" }}> {item.data.quantity} </Text>
-                            
-                            <TouchableOpacity style={styles.button} onPress={() => { _incrementquantitiy(item.data) }}>
-                                <Text style={{ color: '#1b263b', fontSize: 28, fontFamily: "Roboto-Bold" }}> + </Text>
-                            </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => {_decrementquantitiy(item.data)}}>
+                            <Text style={{color:'#1b263b',fontSize:28,fontFamily:"Roboto-Bold"}}> - </Text>
+                        </TouchableOpacity>
+                    </View> ) : 
+                    ( <TouchableOpacity style={{ width: 100 }} onPress={() => {_onaddtocart(item.data)}}>
+                        <Text style={{
+                            borderColor: 'grey', 
+                            borderRadius:10,
+                            borderWidth: 1,
+                            marginVertical: 10,
+                            color: '#088F8F',
+                            fontWeight:'600',
+                            textAlign: 'center',
+                            padding: 5 }}> Add
+                        </Text>
+                    </TouchableOpacity> )      
 
-                        </View>) :
-                        (<TouchableOpacity style={{ width: 100 }} onPress={() => { _onaddtocart(item.data) }}>
-                            <Text style={{
-                                borderColor: 'grey',
-                                borderRadius: 10,
-                                borderWidth: 1,
-                                marginVertical: 10,
-                                color: '#088F8F',
-                                fontWeight: '600',
-                                textAlign: 'center',
-                                padding: 5
-                            }}> Add
-                            </Text>
-                        </TouchableOpacity>)
 
                 }
 
