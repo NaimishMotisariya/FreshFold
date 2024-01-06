@@ -17,6 +17,7 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const Order = ({ navigation }) => {
+  
   const [selectedDetergent, setSelectedDetergent] = useState('None');
   const [selectedFabricFresh, setSelectedFabricFresh] = useState('None');
   const [date, setDate] = useState(new Date());
@@ -55,7 +56,13 @@ const Order = ({ navigation }) => {
 
   ];
   const handleOrderPress = () => {
-    navigation.push('cart');
+    navigation.replace('Cartscreen', {
+      selectedDetergent,
+      selectedFabricFresh,
+      address,
+      selectedDateTime,
+      selectedDateTimes
+    });
   };
 
   return (
@@ -74,7 +81,7 @@ const Order = ({ navigation }) => {
                   key={button.id}
                   style={[
                     styles.button,
-                    { backgroundColor: selectedDetergent === button.name ? '#088F8F' : '#f2f5f2' },
+                    { backgroundColor: selectedDetergent === button.name ? '#a2d2ff' : '#f2f5f2' },
                   ]}
                   onPress={() => handleDetergentPress(button.name)}
                 >
@@ -94,7 +101,7 @@ const Order = ({ navigation }) => {
                   key={button.id}
                   style={[
                     styles.button,
-                    { backgroundColor: selectedFabricFresh === button.name ? '#088F8F' : '#f2f5f2' },
+                    { backgroundColor: selectedFabricFresh === button.name ? '#a2d2ff' : '#f2f5f2' },
                   ]}
                   onPress={() => handleFabricFreshPress(button.name)}
                 >
@@ -110,7 +117,7 @@ const Order = ({ navigation }) => {
           <TextInput
             style={styles.addressInput}
             multiline={true}
-            placeholderTextColor={'#088F8F'}
+            placeholderTextColor={'#a2d2ff'}
             numberOfLines={4}
             value={address}
             onChangeText={(text) => setAddress(text)}
@@ -118,7 +125,7 @@ const Order = ({ navigation }) => {
           />
         </View>
 
-        <View style={styles.componentContainer}>
+        <View style={styles.componentContainer2}>
           <Text style={styles.text}>PICKUP</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
             <Text style={styles.text}>Select Date and Time</Text>
@@ -142,7 +149,7 @@ const Order = ({ navigation }) => {
             theme='dark'
             is24hourSource={'device'}
             mode='datetime'
-            textColor='#088F8F'
+            textColor='#a2d2ff'
             dividerHeight={10}
             fadeToColor={'#000'}
             confirmText={'Select'}
@@ -158,7 +165,7 @@ const Order = ({ navigation }) => {
           />
         </View>
 
-        <View style={styles.componentContainer}>
+        <View style={styles.componentContainer2}>
           <Text style={styles.text}>Delivery</Text>
 
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
@@ -178,13 +185,13 @@ const Order = ({ navigation }) => {
           <DatePicker
             modal
             open={opens}
-            title={'SELECT PICKUP'}
+            title={'SELECT DELIVERY'}
             date={dates}
             androidVariant='iosClone'
             theme='dark'
             is24hourSource={'device'}
             mode='datetime'
-            textColor='#088F8F'
+            textColor='#a2d2ff'
             dividerHeight={10}
             fadeToColor={'#000'}
             confirmText={'Select'}
@@ -221,14 +228,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
+  componentContainer2: {
+    flex: 1,
+    margin: 10,
+    justifyContent:'center',
+    height:height*0.1,
+    width: width - 20,
+    alignSelf:'center',
+    marginVertical: 5,
+    borderRadius: 10,
+    backgroundColor: '#f2f5f2',
+    shadowColor: '#a2d2ff',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
+  },
   componentContainer: {
     flex: 1,
     margin: 10,
     width: width - 20,
+    alignSelf:'center',
     marginVertical: 5,
     borderRadius: 10,
     backgroundColor: '#f2f5f2',
-    shadowColor: '#088F8F',
+    shadowColor: '#a2d2ff',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
@@ -258,7 +282,7 @@ const styles = StyleSheet.create({
   },
   detergent: {
     fontSize: 20,
-    color: '#088F8F',
+    color: '#a2d2ff',
     marginLeft: 10,
     marginBottom: 0,
   },
@@ -266,6 +290,7 @@ const styles = StyleSheet.create({
     height: height * 0.1,
     backgroundColor: 'white',
     width: width - 40,
+    color:'#a2d2ff',
     fontSize: 18,
     borderColor: 'gray',
     borderRadius: 10,
@@ -275,7 +300,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: '#088F8F',
+    color: '#a2d2ff',
     fontWeight: '500',
     marginLeft: 20,
   },
@@ -285,7 +310,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   orderButton: {
-    backgroundColor: '#088F8F',
+    backgroundColor: '#a2d2ff',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -296,7 +321,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   dateTimeContainer: {
-    backgroundColor: '#088F8F',
+    backgroundColor: '#a2d2ff',
     width: width - 60,
     height: 40,
     borderRadius: 10,
